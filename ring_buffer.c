@@ -41,13 +41,13 @@ bool rb_push(ringbuf_t *rb, uint8_t byte)
 {
     // TODO: if full, apply your full-buffer policy
     // full buffer policy: ignore on full buffer
-    if(rb->head+1 == rb->size){
+    if(rb->head-rb->tail==rb->size){
         return false;
     }
-    // TODO: write byte at buf[head & (size - 1)]
-    rb[head&(size-1)] = byte
+    rb->buf[rb->head & (rb->size - 1)] = byte;
     // TODO: increment head (only AFTER the byte is written)
-    head+=1;
+    rb->head +=1;
+
     return true;
 }
 
